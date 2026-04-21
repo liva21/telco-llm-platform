@@ -1,0 +1,88 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: telco-llm-platform
+  namespace: telco-llm
+  labels:
+    app: telco-llm
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: telco-llm
+  template:
+    metadata:
+      labels:
+        app: telco-llm
+    spec:
+      containers:
+        - name: api
+          image: image-registry.openshift-image-registry.svc:5000/telco-llm/telco-llm-platform:latest
+          imagePullPolicy: Always
+          ports:
+            - name: http
+              containerPort: 8000
+          env:
+            - name: TELCO_MODEL_MODE
+              value: "mock"
+            - name: TELCO_BASE_MODEL
+              value: "Qwen/Qwen2.5-0.5B"
+            - name: TELCO_ADAPTER_DIR
+              value: "/app/finetune/outputs/telco-lora"
+            - name: PORT
+              value: "8000"
+          resources:
+            requests:
+              cpu: "250m"
+              memory: "512Mi"
+            limits:
+              cpu: "2"
+              memory: "4Gi"
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: 8000
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 20
+            periodSeconds: 15
+          volumeMounts:
+            - name: adapter-volume
+              mountPath: /app/finetune/outputs
+      volumes:
+        - name: adapter-volume
+          persistentVolumeClaim:
+            claimName: telco-llm-adapters
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: telco-llm-platform
+  namespace: telco-llm
+  labels:
+    app: telco-llm
+spec:
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 8000
+      targetPort: 8000
+  selector:
+    app: telco-llm
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: telco-llm-adapters
+  namespace: telco-llm
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+      

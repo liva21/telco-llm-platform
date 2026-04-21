@@ -1,0 +1,26 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: telco-llm-platform:latest
+    container_name: telco-llm-api
+    environment:
+      - TELCO_MODEL_MODE=${TELCO_MODEL_MODE:-mock}
+      - TELCO_BASE_MODEL=${TELCO_BASE_MODEL:-Qwen/Qwen2.5-0.5B}
+      - TELCO_ADAPTER_DIR=/app/finetune/outputs/telco-lora
+      - PORT=8000
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./finetune/outputs:/app/finetune/outputs
+    restart: unless-stopped
+
+  mcp-http:
+    image: telco-llm-platform:latest
+    container_name: telco-llm-mcp
+    command: [ "python", "-m", "mcp_server.server", "--http", "--port", "8765" ]
+    ports:
+      - "8765:8765"
+    depends_on:
+      - api
