@@ -1,6 +1,6 @@
 # telco-llm-platform
 
-Türk Telekom domain'ine fine-tuned, **MCP destekli**, **OpenShift-ready** LLM platformu.
+Telekomünikasyon domain'ine fine-tuned, **MCP destekli**, **OpenShift-ready** LLM platformu.
 
 - **Fine-tuning:** Qwen2.5 / Mistral üzerinde LoRA (PEFT + TRL), MLflow ile deney takibi
 - **MCP Server:** `query_knowledge_base`, `get_customer_info`, `check_network_status` araçları
@@ -314,7 +314,7 @@ curl -s -X POST http://localhost:8765/call \
 
 ---
 
-## 10) Özellikler & mülakat argümanları
+## 10) Özellikler 
 
 - **LoRA PEFT** — tam ağırlık güncellemek yerine adapter eğitimi. 7B model Colab T4'te sığar.
 - **TRL SFTTrainer** — instruction-tuning için hazır pipeline.
