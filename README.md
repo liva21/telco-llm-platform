@@ -333,6 +333,7 @@ MIT
 
 
 <img width="1270" height="1544" alt="image" src="https://github.com/user-attachments/assets/97ae9ce5-e1ad-49df-8342-df7201bbcf21" />
-<img width="1358" height="1482" alt="image" src="https://github.com/user-attachments/assets/3251139f-8663-4f68-bd32-8af20b835606" />
+<img width="1168" height="1512" alt="image" src="https://github.com/user-attachments/assets/5716d74d-23a8-46af-8d22-7536a6eacd49" />
+
 
 
