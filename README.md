@@ -328,4 +328,11 @@ curl -s -X POST http://localhost:8765/call \
 
 ## Lisans
 
-MIT — kendi CV'nde referans olarak paylaşabilirsin.
+MIT 
+
+
+
+<img width="1270" height="1544" alt="image" src="https://github.com/user-attachments/assets/97ae9ce5-e1ad-49df-8342-df7201bbcf21" />
+<img width="1358" height="1482" alt="image" src="https://github.com/user-attachments/assets/3251139f-8663-4f68-bd32-8af20b835606" />
+
+
